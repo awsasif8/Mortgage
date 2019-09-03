@@ -30,8 +30,8 @@ public class MortgageBalanceDeduct {
     {
         List<Mortagage> mortagageList = mortagageRepository.findAll();
         
-        if(null != mortagageList || mortagageList.isEmpty())
-        	throw new MortagageManagementException("Error in scheduler");
+//if(null != mortagageList || mortagageList.isEmpty())
+  //      	throw new MortagageManagementException("Error in scheduler");
         
         for(int i =0;i<mortagageList.size();i++)
         {
