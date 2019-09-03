@@ -108,6 +108,8 @@ public class RegisterServiceImpl implements RegisterService {
 		result.setCustomerId(customer.getCustomerId());
 		result.setMessage("Registration Successfull");
 		result.setStatusCode(201);
+		result.setStatus("SUCCESS");
+
 		
 		result.setTransactionAcc(account.getAccountNumber());
 		result.setMortgageAcc(mortgage.getMortagageId());
