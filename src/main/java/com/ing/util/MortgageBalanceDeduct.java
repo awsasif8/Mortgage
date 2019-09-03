@@ -25,7 +25,7 @@ public class MortgageBalanceDeduct {
     TransactionRepository transactionRepository;
     
     @SuppressWarnings("null")
-	@Scheduled(fixedDelay = 600000)
+	@Scheduled(fixedDelay = 60000)
     public void deductBalance()
     {
         List<Mortagage> mortagageList = mortagageRepository.findAll();
@@ -54,7 +54,7 @@ public class MortgageBalanceDeduct {
                 
                 Transaction transactionData = new Transaction();
                 transactionData.setAccountNumber(accountNumber);
-                transactionData.setAccountType("transaction");
+               transactionData.setAccountType("mortgage");
                 transactionData.setDescription("payment towards to mortgage loan");
                 transactionData.setTransactionAmount(200);
                 transactionData.setTransactionType("credit");
