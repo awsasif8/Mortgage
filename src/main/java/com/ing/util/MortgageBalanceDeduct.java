@@ -24,14 +24,13 @@ public class MortgageBalanceDeduct {
     @Autowired
     TransactionRepository transactionRepository;
     
-    @SuppressWarnings("null")
-	@Scheduled(fixedDelay = 60000)
+      
+@Scheduled(fixedDelay = 60000)
     public void deductBalance()
     {
         List<Mortagage> mortagageList = mortagageRepository.findAll();
         
-//if(null != mortagageList || mortagageList.isEmpty())
-  //      	throw new MortagageManagementException("Error in scheduler");
+     
         
         for(int i =0;i<mortagageList.size();i++)
         {
@@ -54,23 +53,14 @@ public class MortgageBalanceDeduct {
                 
                 Transaction transactionData = new Transaction();
                 transactionData.setAccountNumber(accountNumber);
-               transactionData.setAccountType("mortgage");
+                transactionData.setAccountType("mortgage");
                 transactionData.setDescription("payment towards to mortgage loan");
                 transactionData.setTransactionAmount(200);
-                transactionData.setTransactionType("credit");
+                transactionData.setTransactionType("debit");
                 transactionData.setTransactionDate(LocalDateTime.now());
                 transactionRepository.save(transactionData);
                 
-                
-                
-                Transaction transactionDataDebit = new Transaction();
-                transactionDataDebit.setAccountNumber(accountData.getCustomerId());
-                transactionDataDebit.setAccountType("transaction");
-                transactionDataDebit.setDescription("release of payment");
-                transactionDataDebit.setTransactionAmount(200);
-                transactionDataDebit.setTransactionType("debit");
-                transactionDataDebit.setTransactionDate(LocalDateTime.now());
-                transactionRepository.save(transactionDataDebit);
+               
                 
                 Mortagage mort = mortagageRepository.findBycustomerId(customerId);
                 Mortagage mortagageData = new Mortagage();
@@ -82,6 +72,15 @@ public class MortgageBalanceDeduct {
                 mortagageData.setMortagageType(mort.getMortagageType());
                 mortagageData.setPropertyCost(mort.getPropertyCost());
                 mortagageRepository.save(mortagageData);
+                
+                Transaction transactionDataDebit = new Transaction();
+                transactionDataDebit.setAccountNumber(mort.getMortagageId());
+                transactionDataDebit.setAccountType("transaction");
+                transactionDataDebit.setDescription("release of payment");
+                transactionDataDebit.setTransactionAmount(200);
+                transactionDataDebit.setTransactionType("credit");
+                transactionDataDebit.setTransactionDate(LocalDateTime.now());
+                transactionRepository.save(transactionDataDebit);
             }
             else
             {
